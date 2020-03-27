@@ -21,6 +21,15 @@ class LinkedList:
         # reference to the head of the list
         self.head = None
 
+    def __str__(self):
+        node = self.head
+
+        values = ""
+        while node is not None:
+            values += str(node.value) + " "
+            node = node.get_next()
+        return values
+
     def add_to_head(self, value):
         node = Node(value)
         if self.head is not None:
@@ -45,6 +54,29 @@ class LinkedList:
         # if we've gotten here, then the target node isn't in our list
         return False
 
-    def reverse_list(self, node, prev):
+    def reverse_list(self, node):
         # You must use recursion for this solution
-        pass
+        # OK BUDDY
+
+        # Someone passed us an empty list...
+        if node == None:
+            return None
+
+        # BASE CASE!!!
+        # When we reach the end of the list
+        # set head to this node
+        if node.get_next() == None:
+            self.head = node
+            return
+        else:
+            # Call until end of list
+            self.reverse_list(node.get_next())
+
+            # Swap!
+            # N1 -> N2
+            # N1 -> N2 -> N1
+            # N1 -> None
+            # Result: N2 -> N1
+            node.get_next().set_next(node)
+
+            node.set_next(None)
